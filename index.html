@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <h1>Ứng dụng quản lý thú cưng</h1>
+      <p>
+        Ở bài Assignment đầu tiên, bạn sẽ được thực hành tạo một ứng dụng quản
+        lý thú cưng cơ bản. Ứng dụng sẽ có giao diện như sau:
+      </p>
+      <img src="./img/ass1.PNG" alt="" />
+    </header>
+    <div class="content">
+      <h2>
+        Ứng dụng sẽ bao gồm một Form để người dùng nhập liệu các thông tin cho
+        thú cưng:
+      </h2>
+      <div class="ulContent">
+        <ul>
+          <li class="textContent">
+            <b>ID:</b>
+            Đây là ID cho mỗi thú cưng, phải khác biệt với nhau
+          </li>
+          <li class="textContent"><b>Name:</b> Tên gọi của thú cưng</li>
+          <li class="textContent"><b>Age:</b> Tuổi của thú cưng</li>
+          <li class="textContent"><b>Type:</b> Loại thú cưng (Chó hoặc Mèo)</li>
+          <li class="textContent"><b>Weight:</b> Cân nặng của thú cưng</li>
+        </ul>
+        <ul>
+          <li class="textContent"></li><b>Height:</b> Chiều dài của thú cưng</li>
+          <li class="textContent"><b>Color:</b> Màu sắc của thú cưng</li>
+          <li class="textContent"><b>Breed:</b> Loại giống</li>
+          <li class="textContent">
+            <b>Vaccinated:</b> Thú cưng đã được tiêm phòng chưa
+          </li>
+          <li class="textContent"><b>Dewormed:</b>: Thú cưng đã được tẩy giun chưa</li>
+          <li class="textContent">
+            <b> Sterilized:</b>: Thú cưng đã được triệt sản chưa
+          </li>
+        </ul>
+      </div>
+      <h2>Người dùng cần nhập đầy đủ các thông tin trên để có thể thêm một thú cưng mới lên hệ thống. Đồng thời, ứng dụng cũng sẽ có một số chức năng khác như:Xóa thú cưng và Lọc các thú cưng được đánh giá là khỏe mạnh</h2>
+
+      <h2 style="color: #204a87;">Gợi ý</h2>
+      <p class="fontBlack">Cần hoàn thành các bước như sau</p>
+      <ul class="submitTip">
+        <li>Bắt sự kiện Click vào nút "Submit"</li>
+        <li>Lấy dữ liệu từ các Form Input</li>
+        <li>Validate dữ liệu</li>
+        <li>Thêm thú cưng vào danh sách</li>
+        <li>Hiển thị danh sách thú cưng</li>
+        <li>Xóa các dữ liệu nhập trong Form Input</li>
+      </ul>
+      <p class="fontBlack">1. Bắt sự kiện Click vào nút "Submit"</p>
+      <p>Đầu tiên bạn cần lấy ra các DOM Element mình cần sử dụng, bạn có thể xem lại file HTML để truy xuất theo đúng ID hoặc Class thông qua hàm document.getElementById() hoặc document.querySelector().</p>
+      <p> Trong file html có sẵn 2 hàng dữ liệu ví dụ, sau khi tham khảo thì hãy xóa 2 hàng đó khỏi file html.</p>
+      <p>Gợi ý: Sử dụng document.getElementById hoặc document.querySelector để lấy ra Dom element</p>
+      <pre style="margin: 0; line-height: 125%;">
+        <span style="color: #204a87; font-weight: bold;">const</span> <span style="color: #000000;">submitBtn</span> <span style="color: #ce5c00; font-weight: bold;">=</span> <span style="color: #204a87;">document</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">getElementById</span><span style="color: #000000; font-weight: bold;">(</span><span style="color: #4e9a06;">"submit-btn"</span><span style="color: #000000; font-weight: bold;">);</span>
+        <span style="color: #204a87; font-weight: bold;">const</span> <span style="color: #000000;">idInput</span> <span style="color: #ce5c00; font-weight: bold;">=</span> <span style="color: #204a87;">document</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">getElementById</span><span style="color: #000000; font-weight: bold;">(</span><span style="color: #4e9a06;">"input-id"</span><span style="color: #000000; font-weight: bold;">);</span>
+        <span style="color: #204a87; font-weight: bold;">const</span> <span style="color: #000000;">nameInput</span> <span style="color: #ce5c00; font-weight: bold;">=</span> <span style="color: #204a87;">document</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">getElementById</span><span style="color: #000000; font-weight: bold;">(</span><span style="color: #4e9a06;">"input-name"</span><span style="color: #000000; font-weight: bold;">);</span>
+        <span style="color: #204a87; font-weight: bold;">const</span> <span style="color: #000000;">ageInput</span> <span style="color: #ce5c00; font-weight: bold;">=</span> <span style="color: #204a87;">document</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">getElementById</span><span style="color: #000000; font-weight: bold;">(</span><span style="color: #4e9a06;">"input-age"</span><span style="color: #000000; font-weight: bold;">);</span>
+        <span style="color: #204a87; font-weight: bold;">const</span> <span style="color: #000000;">typeInput</span> <span style="color: #ce5c00; font-weight: bold;">=</span> <span style="color: #204a87;">document</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">getElementById</span><span style="color: #000000; font-weight: bold;">(</span><span style="color: #4e9a06;">"input-type"</span><span style="color: #000000; font-weight: bold;">);</span>
+        <span style="color: #204a87; font-weight: bold;">const</span> <span style="color: #000000;">weightInput</span> <span style="color: #ce5c00; font-weight: bold;">=</span> <span style="color: #204a87;">document</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">getElementById</span><span style="color: #000000; font-weight: bold;">(</span><span style="color: #4e9a06;">"input-weight"</span><span style="color: #000000; font-weight: bold;">);</span>
+        <span style="color: #204a87; font-weight: bold;">const</span> <span style="color: #000000;">lengthInput</span> <span style="color: #ce5c00; font-weight: bold;">=</span> <span style="color: #204a87;">document</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">getElementById</span><span style="color: #000000; font-weight: bold;">(</span><span style="color: #4e9a06;">"input-length"</span><span style="color: #000000; font-weight: bold;">);</span>
+        <span style="color: #204a87; font-weight: bold;">const</span> <span style="color: #000000;">colorInput</span> <span style="color: #ce5c00; font-weight: bold;">=</span> <span style="color: #204a87;">document</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">getElementById</span><span style="color: #000000; font-weight: bold;">(</span><span style="color: #4e9a06;">"input-color-1"</span><span style="color: #000000; font-weight: bold;">);</span>
+        <span style="color: #204a87; font-weight: bold;">const</span> <span style="color: #000000;">breedInput</span> <span style="color: #ce5c00; font-weight: bold;">=</span> <span style="color: #204a87;">document</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">getElementById</span><span style="color: #000000; font-weight: bold;">(</span><span style="color: #4e9a06;">"input-breed"</span><span style="color: #000000; font-weight: bold;">);</span>
+        <span style="color: #204a87; font-weight: bold;">const</span> <span style="color: #000000;">vaccinatedInput</span> <span style="color: #ce5c00; font-weight: bold;">=</span> <span style="color: #204a87;">document</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">getElementById</span><span style="color: #000000; font-weight: bold;">(</span><span style="color: #4e9a06;">"input-vaccinated"</span><span style="color: #000000; font-weight: bold;">);</span>
+        <span style="color: #204a87; font-weight: bold;">const</span> <span style="color: #000000;">dewormedInput</span> <span style="color: #ce5c00; font-weight: bold;">=</span> <span style="color: #204a87;">document</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">getElementById</span><span style="color: #000000; font-weight: bold;">(</span><span style="color: #4e9a06;">"input-dewormed"</span><span style="color: #000000; font-weight: bold;">);</span>
+        <span style="color: #204a87; font-weight: bold;">const</span> <span style="color: #000000;">sterilizedInput</span> <span style="color: #ce5c00; font-weight: bold;">=</span> <span style="color: #204a87;">document</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">getElementById</span><span style="color: #000000; font-weight: bold;">(</span><span style="color: #4e9a06;">"input-sterilized"</span><span style="color: #000000; font-weight: bold;">);</span>
+        </pre>
+        <p>Tiếp theo, người dùng sẽ nhập liệu thông qua Form ở giao diện, sau đó nhấn vào nút "Submit" thì sẽ thêm được một thú cưng với với các thông tin vừa được nhập. Để làm được bước này, bạn sẽ cần xử lý được sự kiện khi mà người dùng nhấn vào nút "Submit".</p>
+        <pre style="margin: 0; line-height: 125%;"><span style="color: #000000;">submitBtn</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">addEventListener</span><span style="color: #000000; font-weight: bold;">(</span><span style="color: #4e9a06;">'click'</span><span style="color: #000000; font-weight: bold;">,</span> <span style="color: #204a87; font-weight: bold;">function</span> <span style="color: #000000; font-weight: bold;">(</span><span style="color: #000000;">e</span><span style="color: #000000; font-weight: bold;">)</span> <span style="color: #000000; font-weight: bold;">{</span>
+            <span style="color: #000000; font-weight: bold;">...</span>
+         <span style="color: #000000; font-weight: bold;">});</span>
+         </pre>
+         <p class="fontBlack">2. Lấy được dữ liệu từ các Input Form</p>
+         <p>Bước tiếp theo, bạn cần lấy dữ liệu nhập vào từ người dùng, bạn có thể sử dụng một số thuộc tính như value của text, number input hoặc checked của checkbox. Sau đó, gán tất cả vào một Object.</p>
+         <pre style="margin: 0; line-height: 125%;"><span style="color: #204a87; font-weight: bold;">const</span> <span style="color: #000000;">data</span> <span style="color: #ce5c00; font-weight: bold;">=</span> <span style="color: #000000; font-weight: bold;">{</span>
+            <span style="color: #000000;">id</span><span style="color: #ce5c00; font-weight: bold;">:</span> <span style="color: #000000;">idInput</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">value</span><span style="color: #000000; font-weight: bold;">,</span>
+            <span style="color: #000000;">age</span><span style="color: #ce5c00; font-weight: bold;">:</span> <span style="color: #204a87;">parseInt</span><span style="color: #000000; font-weight: bold;">(</span><span style="color: #000000;">ageInput</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">value</span><span style="color: #000000; font-weight: bold;">),</span>
+            <span style="color: #000000;">color</span><span style="color: #ce5c00; font-weight: bold;">:</span> <span style="color: #000000;">colorInput</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">value</span><span style="color: #000000; font-weight: bold;">,</span>
+            <span style="color: #000000;">breed</span><span style="color: #ce5c00; font-weight: bold;">:</span> <span style="color: #000000;">breedInput</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">value</span><span style="color: #000000; font-weight: bold;">,</span>
+            <span style="color: #000000;">vaccinated</span><span style="color: #ce5c00; font-weight: bold;">:</span> <span style="color: #000000;">vaccinatedInput</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">checked</span><span style="color: #000000; font-weight: bold;">,</span>
+            <span style="color: #000000;">date</span><span style="color: #ce5c00; font-weight: bold;">:</span> <span style="color: #204a87; font-weight: bold;">new</span> <span style="color: #204a87;">Date</span><span style="color: #000000; font-weight: bold;">(),</span>
+            <span style="color: #000000; font-weight: bold;">...</span>
+        <span style="color: #000000; font-weight: bold;">}</span>
+        </pre>
+        <p>Lưu ý: Bạn cần hoàn thành tiếp đoạn code trên để lấy các trường dữ liệu còn lại.</p>
+        <p class="fontBlack">3. Validate dữ liệu hợp lệ</p>
+        <p>Sẽ có những trường hợp người dùng nhập thiếu dữ liệu hoặc nhập dữ liệu không hợp lệ. Bạn sẽ cần validate theo các yêu cầu như sau:</p>
+        <ul>
+            <li><span style="font-family: arial, helvetica, sans-serif;">Không có trường nào bị nhập thiếu dữ liệu.</span></li>
+            <li><span style="font-family: arial, helvetica, sans-serif;">Giá trị ID không được trùng với các thú cưng còn lại. Nếu không hợp lệ, hãy đưa ra thông báo <strong>"ID must be unique!".</strong></span></li>
+            <li><span style="font-family: arial, helvetica, sans-serif;">Trường <strong>Age</strong> chỉ được nhập giá trị trong khoảng 1 đến 15.&nbsp;Nếu không hợp lệ, hãy đưa ra thông báo <strong>"Age must be between 1 and 15!".</strong></span></li>
+            <li><span style="font-family: arial, helvetica, sans-serif;">Trường&nbsp;<strong>Weight</strong> chỉ được nhập giá trị trong khoảng 1 đến 15.&nbsp;Nếu không hợp lệ, hãy đưa ra thông báo<strong> "Weight must be between 1 and 15!".</strong></span></li>
+            <li><span style="font-family: arial, helvetica, sans-serif;">Trường <strong>Length</strong> chỉ được nhập giá trị trong khoảng 1 đến 100.&nbsp;Nếu không hợp lệ, hãy đưa ra thông báo <strong>"Length must be between 1 and 100!".</strong></span></li>
+            <li><span style="font-family: arial, helvetica, sans-serif;">Bắt buộc phải chọn giá trị cho trường Type.&nbsp;Nếu không hợp lệ, hãy đưa ra thông báo <strong>"Please select Type!".</strong></span></li>
+            <li><span style="font-family: arial, helvetica, sans-serif;">Bắt buộc phải chọn giá trị cho trường Breed.&nbsp;Nếu không hợp lệ, hãy đưa ra thông báo <strong>"Please select Breed!".</strong></span></li>
+        </ul>
+        <p>Bạn có thể sử dụng hàm alert() để đưa ra thông báo cho người dùng.</p>
+        <img src="./img/ass2.PNG" style="width: 500px;height: 200px;" alt="">
+        <p class="fontBlack">4. Thêm thú cưng vào danh sách</p>
+        <p>Tạo một biến global tên là  petArr là một mảng lưu danh sách thú cưng.</p>
+        <pre style="margin: 0; line-height: 125%;"><span style="color: #204a87; font-weight: bold;">const</span> <span style="color: #000000;">petArr</span> <span style="color: #ce5c00; font-weight: bold;">=</span> <span style="color: #000000; font-weight: bold;">[];</span>
+        </pre>
+        <p>Sau khi qua bước validate, nếu không gặp lỗi gì thì sẽ thêm thú cưng vào mảng petArr.</p>
+        <pre style="margin: 0; line-height: 125%;">
+        <span style="color: #204a87; font-weight: bold;">const</span> <span style="color: #000000;">validate</span> <span style="color: #ce5c00; font-weight: bold;">=</span> <span style="color: #000000;">validateData</span><span style="color: #000000; font-weight: bold;">(</span><span style="color: #000000;">data</span><span style="color: #000000; font-weight: bold;">)</span>
+        <span style="color: #204a87; font-weight: bold;">if</span> <span style="color: #000000; font-weight: bold;">(</span><span style="color: #000000;">validate</span><span style="color: #000000; font-weight: bold;">)</span> <span style="color: #000000; font-weight: bold;">{</span>
+            <span style="color: #000000;">petArr</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">push</span><span style="color: #000000; font-weight: bold;">(</span><span style="color: #000000;">data</span><span style="color: #000000; font-weight: bold;">)</span>
+            <span style="color: #000000;">clearInput</span><span style="color: #000000; font-weight: bold;">()</span>
+            <span style="color: #000000;">renderTableData</span><span style="color: #000000; font-weight: bold;">(</span><span style="color: #000000;">petArr</span><span style="color: #000000; font-weight: bold;">)</span>
+        <span style="color: #000000; font-weight: bold;">}</span>
+        </pre>
+        <p>Ngược lại, nếu có lỗi thì bạn sẽ hiển thị lỗi đó ra cho người dùng.</p>
+        <p class="fontBlack">5. Hiển thị danh sách thú cưng</p>
+        <p>Tiếp theo bạn sẽ thực hiện thao tác để đưa dữ liệu của mảng để hiển thị ra giao diện cho người dùng. Để làm được thao tác này, bạn cần tạo một hàm gọi là renderTableData.</p>
+        <pre style="margin: 0; line-height: 125%;"><span style="color: #204a87; font-weight: bold;">function</span> <span style="color: #000000;">renderTableData</span><span style="color: #000000; font-weight: bold;">(</span><span style="color: #000000;">petArr</span><span style="color: #000000; font-weight: bold;">)</span> <span style="color: #000000; font-weight: bold;">{</span>
+            <span style="color: #000000; font-weight: bold;">}</span>
+        </pre>
+        <p>Hàm này sẽ nhận vào một tham số là petArr, đây chính là mảng chứa dữ liệu về các thú cưng của chúng ta. Sau đó hàm này sẽ xóa toàn bộ nội dung của bảng, và tiến hành tạo các hàng mới tương ứng với từng thú cưng.</p>
+        <p>Sau đó, bạn cần duyệt qua các phần tử trong petArr, tạo các hàng tương ứng và thêm vào bảng với cú pháp như sau:</p>
+        <pre style="margin: 0; line-height: 125%;">
+            <span style="color: #204a87; font-weight: bold;">const</span> <span style="color: #000000;">row</span> <span style="color: #ce5c00; font-weight: bold;">=</span> <span style="color: #204a87;">document</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">createElement</span><span style="color: #000000; font-weight: bold;">(</span><span style="color: #4e9a06;">'tr'</span><span style="color: #000000; font-weight: bold;">)</span>
+            <span style="color: #000000;">row</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">innerHTML</span> <span style="color: #ce5c00; font-weight: bold;">=</span> <span style="color: #4e9a06;">'&lt;HTML code&gt;'</span>
+            <span style="color: #000000;">tableBodyEl</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">appendChild</span><span style="color: #000000; font-weight: bold;">(</span><span style="color: #000000;">row</span><span style="color: #000000; font-weight: bold;">)</span>
+        </pre>
+        <p>Bạn chỉ cần truyền vào đoạn HTML cho thẻ tr tương ứng với dữ liệu cho thú cưng tương ứng. Để tạo HTML Code dễ hơn, bạn có thể sử dụng Template String.</p>
+        <p>Để xóa nội dung hiện có của bảng, bạn có thể sử dụng câu lệnh sau:</p>
+        <pre style="margin: 0; line-height: 125%;"><span style="color: #000000;">tableBodyEl</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">innerHTML</span> <span style="color: #ce5c00; font-weight: bold;">=</span> <span style="color: #4e9a06;">''</span>
+        </pre>
+        <p class="fontBlack">6.Xóa các dữ liệu vừa nhập trên Form</p>
+        <p>Sau khi thêm thú cưng thành công, bạn cần xóa các dữ liệu mà người dùng vừa nhập ở trên Form. Cách đơn giản nhất là bạn sẽ đặt lại giá trị cho các thẻ input về rỗng hoặc ''.</p>
+        <pre style="margin: 0; line-height: 125%;"><span style="color: #204a87; font-weight: bold;">const</span> <span style="color: #000000;">clearInput</span> <span style="color: #ce5c00; font-weight: bold;">=</span> <span style="color: #000000; font-weight: bold;">()</span> <span style="color: #ce5c00; font-weight: bold;">=&gt;</span> <span style="color: #000000; font-weight: bold;">{</span>
+            <span style="color: #000000;">idInput</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">value</span> <span style="color: #ce5c00; font-weight: bold;">=</span> <span style="color: #4e9a06;">''</span>
+            <span style="color: #000000;">typeInput</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">value</span> <span style="color: #ce5c00; font-weight: bold;">=</span> <span style="color: #4e9a06;">'Select type'</span>
+            <span style="color: #000000;">vaccinatedInput</span><span style="color: #000000; font-weight: bold;">.</span><span style="color: #000000;">checked</span> <span style="color: #ce5c00; font-weight: bold;">=</span> <span style="color: #204a87; font-weight: bold;">false</span>
+            <span style="color: #000000; font-weight: bold;">...</span>
+        <span style="color: #000000; font-weight: bold;">}</span>
+        </pre>
+        <p>Lưu ý: Bạn cần hoàn thành tiếp đoạn code trên để xóa dữ liệu cho các Input còn lại.</p>
+        <p class="fontBlack">7. Xóa một thú cưng</p>
+        <p>Như bạn có thể thấy, chúng ta sẽ có một nút để xóa thú cưng tương ứng đi. Ở bước này, bạn sẽ viết đoạn code để hoàn thành thao tác đó.
+            Trước khi xóa, bạn cần xác nhận với người dùng xem có thực sự muốn xóa không thông qua hàm confirm.</p>
+        <pre style="margin: 0; line-height: 125%;"><span style="color: #000000;">confirm</span><span style="color: #000000; font-weight: bold;">(</span><span style="color: #4e9a06;">'Are you sure?'</span><span style="color: #000000; font-weight: bold;">)</span>
+        </pre>
+        <p>Nếu người dùng đồng ý xóa, bạn sẽ thực hiện tìm kiếm và xóa thú cưng khỏi danh sách, sau đó reload lại bảng bằng cách gọi lại hàm renderTableData. Bạn có thể sử dụng hàm splice và findIndex để thực hiện thao tác này.</p>
+        <p>Hàm deletePet sẽ nhận vào ID của thú cưng muốn xóa. Sau đó bạn chỉ cần loại dữ liệu có id tương ứng ra khỏi mảng petArr và hiển thị lại trên giao diện. </p>
+        <pre style="margin: 0; line-height: 125%;"><span style="color: #204a87; font-weight: bold;">const</span> <span style="color: #000000;">deletePet</span> <span style="color: #ce5c00; font-weight: bold;">=</span> <span style="color: #000000; font-weight: bold;">(</span><span style="color: #000000;">petId</span><span style="color: #000000; font-weight: bold;">)</span> <span style="color: #ce5c00; font-weight: bold;">=&gt;</span> <span style="color: #000000; font-weight: bold;">{</span>
+            <span style="color: #8f5902; font-style: italic;">// Confirm before deletePet</span>
+            <span style="color: #204a87; font-weight: bold;">if</span> <span style="color: #000000; font-weight: bold;">(</span><span style="color: #000000;">confirm</span><span style="color: #000000; font-weight: bold;">(</span><span style="color: #4e9a06;">'Are you sure?'</span><span style="color: #000000; font-weight: bold;">))</span> <span style="color: #000000; font-weight: bold;">{</span>
+                <span style="color: #000000; font-weight: bold;">...</span>
+            <span style="color: #000000; font-weight: bold;">}</span>
+        <span style="color: #000000; font-weight: bold;">}</span>
+        </pre>
+       <p>Để thêm petId vào hàm deletePet, bạn có thể truyền thực tiếp thông qua thuộc tính onClick của nút "Delete", ví dụ như sau:</p>
+       <pre style="margin: 0; line-height: 125%;"><span style="color: #204a87; font-weight: bold;">&lt;td&gt;</span>
+        <span style="color: #204a87; font-weight: bold;">&lt;button</span> <span style="color: #c4a000;">class=</span><span style="color: #4e9a06;">"btn btn-danger"</span> <span style="color: #c4a000;">onclick=</span><span style="color: #4e9a06;">"deletePet('${ pet.id }')"</span><span style="color: #204a87; font-weight: bold;">&gt;</span>Delete<span style="color: #204a87; font-weight: bold;">&lt;/button&gt;</span>
+    <span style="color: #204a87; font-weight: bold;">&lt;/td&gt;</span></pre>
+    <p class="fontBlack">8. Hiển thị các thú cưng khỏe mạnh</p>
+    <p>Ngoài ra, ứng dụng cũng sẽ có chức năng để lọc ra những thú cưng khỏe mạnh. Tiêu chí để biết một thú cưng khỏe mạnh là đảm bảo đã được Tiêm phòng, Tẩy giun và Triệt sản. Ví dụ nếu bạn có dữ liệu ban đầu như sau:</p>
+    <img src="./img/ass3.PNG" alt="">
+    <p>Khi nhấn "Show Healthy Pet" thì sẽ chỉ còn các thú cưng đảm bảo tiêu chí được hiển thị, đồng thời nút bấm cũng sẽ thay đổi thành "Show All Pet".</p>
+    <img src="./img/ass4.PNG" alt="">
+    <p>Khi nhấn lại vào nút <b>"Show All Pet"</b>  thì sẽ hiển thị lại toàn bộ các thú cưng đang có và nút bấm sẽ đổi lại thành <b>"Show Healthy Pet"</b> .</p>
+    <p>Để hoàn thành được chức năng này, bạn sẽ cần tạo một biến dùng để kiểm tra xem hiện tại đang hiển thị tất cả thú cưng hay là chỉ thú cưng khỏe mạnh.</p>
+    <pre style="margin: 0; line-height: 125%;"><span style="color: #204a87; font-weight: bold;">let</span> <span style="color: #000000;">healthyCheck</span> <span style="color: #ce5c00; font-weight: bold;">=</span> <span style="color: #204a87; font-weight: bold;">false</span>
+    </pre>
+    <p>Nếu như biến này là false thì là hiển thị toàn bộ thú cưng, ngược lại nếu là true thì sẽ chỉ hiển thị thú cưng khỏe mạnh. Khi nhấn vào nút, bạn sẽ dựa theo giá trị của biến này để thực hiện các thao tác liên quan.
+    </p>
+    <p>Gợi ý các bước thực hiện: </p>
+    <ul>
+        <li><span face="arial, helvetica, sans-serif" style="font-family: arial, helvetica, sans-serif;">Tạo một biến <strong>healthyPetArr</strong> dưới dạng mảng lưu danh sách thú cưng&nbsp;là Healthy Pet.</span></li>
+        <li><span face="arial, helvetica, sans-serif" style="font-family: arial, helvetica, sans-serif;">Bắt sự kiện click vào Show All Pet/Show Healthy Pet.</span></li>
+        <li><span face="arial, helvetica, sans-serif" style="font-family: arial, helvetica, sans-serif;">Xử lý sự kiện để thay đổi button và biến healthyCheck.</span></li>
+        <li><span face="arial, helvetica, sans-serif" style="font-family: arial, helvetica, sans-serif;">Gán lại mảng healthyPetArr sử dụng hàm <strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter?retiredLocale=vi" target="[object Object]">filter</a></strong>&nbsp;JS nếu <strong>healthyCheck = true</strong>.</span></li>
+        <li><span face="arial, helvetica, sans-serif" style="font-family: arial, helvetica, sans-serif;">Gọi hàm renderTableData với input là petArr nếu <strong>healthyCheck = false</strong> hoặc input là&nbsp; healthyPetArr nếu <strong>healthyCheck = true.</strong></span></li>
+    </ul>
+    </div>
+  </body>
+</html>
